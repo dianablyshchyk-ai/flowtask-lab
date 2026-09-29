@@ -9,6 +9,7 @@
 
 :root {
   --ink: #111827;
+  --ink-subtle: #374151;
   --ink-muted: #939ba7;
   --ink-soft: #717985;
   --brand: #4f46e5;
@@ -37,8 +38,11 @@ body {
   background: var(--surface);
 }
 
-:focus {
-  outline: none;
+/* Accessibility: Keyboard focus indicator */
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 img {
@@ -139,7 +143,8 @@ a {
 .nav-item {
   font-size: 15px;
   font-weight: 500;
-  color: #374151;
+  color: var(--ink-subtle);
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -155,7 +160,7 @@ a {
 
 .link-quiet {
   font-size: 15px;
-  color: #374151;
+  color: var(--ink-subtle);
   text-decoration: none;
 }
 
@@ -178,6 +183,7 @@ a {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .btn--primary,
@@ -251,6 +257,7 @@ a {
 
 .hero__image {
   width: 100%;
+  height: auto;
   border-radius: var(--radius);
   box-shadow: 0 24px 60px rgba(17, 24, 39, 0.16);
 }
@@ -391,15 +398,20 @@ a {
   font-weight: 600;
   text-align: left;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .faq__a {
   display: none;
   padding-bottom: 20px;
-  color: #374151;
+  color: var(--ink-subtle);
 }
 
-.faq__item.is-open .faq__a {
+/* Supporting both .is-open class AND aria-expanded attribute */
+.faq__item.is-open .faq__a,
+.faq__q[aria-expanded="true"] + .faq__a {
   display: block;
 }
 
@@ -432,12 +444,17 @@ a {
 
 .trial__input {
   flex: 1 1 210px;
-  max-width: 260px;
+  max-width: 100%;
   padding: 13px 16px;
   border: 0;
   border-radius: 10px;
   font: inherit;
   font-size: 15px;
+}
+
+.trial__input:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
 /* Footer */
@@ -473,7 +490,7 @@ a {
 }
 
 .site-footer a {
-  color: #374151;
+  color: var(--ink-subtle);
   text-decoration: none;
 }
 
@@ -483,14 +500,16 @@ a {
 
 .social {
   display: flex;
-  gap: 4px;
+  gap: 12px;
   margin-top: 18px;
 }
 
 .social a {
   display: inline-flex;
-  width: 18px;
-  height: 18px;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 .legal {
